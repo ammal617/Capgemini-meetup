@@ -1,0 +1,14 @@
+.footer {
+  text-align: center;
+}
+.list-element-footer {
+  width: 100%;
+  padding: 0;
+}
+.list-element-footer li {
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin: 1rem;
+  color:#6C5B7B;
+}
