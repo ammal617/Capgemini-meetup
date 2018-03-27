@@ -3,6 +3,9 @@
   padding-top: 6rem;
 }
 
+.header-image {
+  width:100%;
+}
 .post-container {
   margin-bottom: 3em;
 }

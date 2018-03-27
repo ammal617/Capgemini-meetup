@@ -24,6 +24,9 @@ class Home extends Component {
     return (
       <div className="home">
         <div className="container-fluid">
+        <div className="header-image-container">
+          <img className="header-image" src={require('./media/sound_wave.svg')} />
+        </div>
           <div className="all-blogpost-container">
             {blogposts}
           </div>
