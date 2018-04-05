@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './style/home.css';
+import LexChat from "react-lex";
+import AWS from 'aws-sdk';
 
+// AWS.config.update({
+//   credentials: new AWS.CognitoIdentityCredentials({
+//     IdentityPoolId: 'eu-west-1:9d05d183-ea5f-41d3-b281-c4befa2fdb80'
+//   }),
+//   region: 'eu-west-1'
+// });
 //moch data representing the existing blog posts
 var allBlogposts = [
   {id: "1", date:"March 27, 2018", author: "Sarah Perez", title: "Medium is now paying partners cash bonuses for quality work", body:"A year ago, publishing platform Medium debuted a new business model where readers could pay a monthly fee to access exclusive, curated content, and would reward participating partners by offering a revenue share based on a metrics like time spent reading and the more explicit claps - Mediums form of the Like. Now, Medium will reward select partners with direct cash bonuses as well, doled out at the companys discretion."},
@@ -31,6 +39,13 @@ class Home extends Component {
             {blogposts}
           </div>
         </div>
+        <LexChat botName="ManageBlog"
+                IdentityPoolId="eu-west-1:9d05d183-ea5f-41d3-b281-c4befa2fdb80"
+                placeholder="Placeholder text"
+                style={{position: 'absolute'}}
+                backgroundColor="#FFFFFF"
+                height="430px"
+                headerText="Chat with our awesome bot" />
       </div>
     );
   }

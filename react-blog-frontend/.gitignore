@@ -2,12 +2,14 @@
 
 # dependencies
 /node_modules
+react-lex/node_modules
 
 # testing
 /coverage
 
 # production
 /build
+react-lex/build
 
 # misc
 .DS_Store
