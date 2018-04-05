@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router-dom';
  */
 import App from './App';
 import Home from './Home';
+import CreateBlogpost from './CreateBlogpost';
 
 
 
@@ -13,6 +14,7 @@ const Main = () => (
   <main>
     <Switch>
     <Route exact path="/" component={Home} />
+    <Route path="/createpost" component={CreateBlogpost} />
     </Switch>
   </main>
 )

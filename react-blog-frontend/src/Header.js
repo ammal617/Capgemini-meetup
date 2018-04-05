@@ -7,8 +7,8 @@ const Header = () => (
       <nav className="navbar-header navbar-fixed-top">
       <div className="container-fluid">
         <ul className="list-element-header ">
-          <p className="navbar-text"> Alexa, write my blogpost </p>
-          <li className=""> <Link to='/' ><button className="btn-header">New post</button> </Link> </li>
+          <Link className="header-text" to='/' ><p className="navbar-text"> Lex, write my blogpost </p> </Link>
+          <li className=""> <Link to='/createpost' ><button className="btn-header">New post</button> </Link> </li>
         </ul>
       </div>
     </nav>

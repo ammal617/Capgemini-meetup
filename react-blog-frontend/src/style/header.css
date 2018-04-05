@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.header-text {
+  text-decoration: none;
+  float: left;
+  Color: #6C5B7B;;
+}
 
 .list-element-header li {
   display: inline-block;
