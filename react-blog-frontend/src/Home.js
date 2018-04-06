@@ -82,11 +82,11 @@ class Home extends Component {
         </div>
         <LexChat botName="ManageBlog"
                 IdentityPoolId="eu-west-1:9d05d183-ea5f-41d3-b281-c4befa2fdb80"
-                placeholder="Placeholder text"
+                placeholder="Write here"
                 style={{position: 'absolute'}}
                 backgroundColor="#FFFFFF"
                 height="430px"
-                headerText="Chat with our awesome bot"
+                headerText="What do you want to do?"
                 blogData = {this.blogData.bind(this)}
                 deletePost = {this.deletePost.bind(this)}
                 editPost = {this.editPost.bind(this)}

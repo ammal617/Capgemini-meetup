@@ -9,7 +9,9 @@
     "react-audio-recorder": "^2.0.1",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "react-speech": "^0.3.2",
+    "react-speech-recognition": "^1.0.4"
   },
   "scripts": {
     "start": "react-scripts start",

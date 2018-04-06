@@ -100,8 +100,8 @@ class LexChat extends React.Component {
     const intent = lexRequest.intentName;
     const sessionAttributes = lexRequest.sessionAttributes;
     const slots = lexRequest.slots;
-    const slotsToElicit = lexRequest.slotsToElicit;
-
+    const slotToElicit = lexRequest.slotToElicit;
+    console.log('lexRequest: ', JSON.stringify(lexRequest, null, 2));
     if (intent === 'CreatePost') {
       console.log('registered create');
       if(sessionAttributes.Id) {
@@ -116,8 +116,11 @@ class LexChat extends React.Component {
         console.log('parsing id: ', slots.Id);
         const intId = parseInt(slots.Id);
         this.props.deletePost(intId);
-      } else if (slotsToElicit) {
+      } else if (!slotToElicit) {
+        console.log('deleting lastest post');
         this.props.deletePost();
+      } else {
+        console.log('no action');
       }
     }
     if (intent === 'EditPost') {
@@ -126,8 +129,10 @@ class LexChat extends React.Component {
         console.log('parsing id: ', slots.Id);
         const intId = parseInt(slots.Id);
         this.props.editPost(intId);
-      } else {
+      } else if (!slotToElicit) {
         this.props.editPost();
+      } else {
+        console.log('no action');
       }
     }
   }
