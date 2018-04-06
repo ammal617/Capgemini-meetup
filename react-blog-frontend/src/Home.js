@@ -1,4 +1,3 @@
-export default Home;
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './style/home.css';
@@ -20,6 +19,7 @@ class Home extends Component {
       data: allBlogposts
     };
     this.blogData = this.blogData.bind(this);
+    this.deleteLastPost = this.deleteLastPost.bind(this);
   }
 
   //updates the state with the new blogpost. Updates state so that new blogpost is added to blogposts
@@ -27,12 +27,23 @@ class Home extends Component {
     var newPost = {id: postId, date: "April 6", author: "Filippa", title: postTitle, body: postBody};
     allBlogposts.push(newPost);
     postId ++;
-    var str = JSON.stringify(allBlogposts);
-    console.log("Stored in var: " + str);
     this.setState({data: allBlogposts});
-    console.log("stored in state: " + this.state.data);
 
    }
+
+   //removes the last added post in the blog
+   deleteLastPost(id) {
+     var check = 3;
+     if (typeof(id) == typeof(check)) {
+       //remove the blogpost with id=id
+       allBlogposts.splice(id, 1);
+       this.setState({data: allBlogposts});
+     } else {
+       allBlogposts.pop();
+       this.setState({data: allBlogposts});
+    }
+   }
+
   //maps blogposts into format to display in component
   render() {
     var blogposts = this.state.data.map(function(item, index) {
@@ -52,6 +63,9 @@ class Home extends Component {
           <img className="header-image" src={require('./media/sound_wave.svg')} />
         </div>
         <ViewBlogposts blogPosts={blogposts}/>
+        <div className="delete-btn-container">
+          <button className="delete-post" onClick={this.deleteLastPost} >Delete last post</button>
+        </div>
           <div className="createblogpost-container">
           <CreateBlogpost handleBlogSubmit={this.blogData} />
           </div>

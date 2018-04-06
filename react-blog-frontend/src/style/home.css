@@ -32,3 +32,22 @@
   margin-right: 6rem;
   margin-top: 4rem;
 }
+
+.delete-post {
+  color: white;
+  border: 1px solid #C95E53;
+  background-color: #C95E53;
+  font-family: sans-serif;
+  cursor: pointer;
+  border-radius: 30px;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  margin-top: 0.75rem;
+
+}
+
+.delete-btn-container {
+  margin-left: 6rem;
+}

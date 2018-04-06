@@ -39,7 +39,7 @@ class CreateBlogpost extends Component {
   //maps blogposts into format to display in component
   render() {
     return (
-      <div className="home container-fluid">
+      <div id="create-new-post" className="home container-fluid">
         <div className="">
           <div className="blogpost-info">
             <h1> Create a blogpost </h1>
@@ -52,7 +52,7 @@ class CreateBlogpost extends Component {
             <AudioRecorder />
           </div>
           <div className="Blogpost-text-input">
-            <div className="forms-container col-lg-6 col-md-6">
+            <div className="forms-container">
             <h1> Write your blogpost here: </h1>
             <form onSubmit={this.handleSubmit}>
             <h2>Title: </h2>

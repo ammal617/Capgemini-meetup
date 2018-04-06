@@ -11,17 +11,15 @@ class ViewBlogposts extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("the data recieved in ViewBlogposts: " +nextProps);
-  //this.setState({ data: nextProps });
-}
 
   //maps blogposts into format to display in component
   render() {
 
     return (
-          <div className="all-blogpost-container">
-            {this.props.blogPosts}
+        <div className="blog-container">
+            <div className="all-blogpost-container">
+              {this.props.blogPosts}
+            </div>
           </div>
     );
   }
