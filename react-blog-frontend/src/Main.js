@@ -7,9 +7,6 @@ import { Switch, Route } from 'react-router-dom';
 import App from './App';
 import Home from './Home';
 import CreateBlogpost from './CreateBlogpost';
-import ChatBot from './ChatBot';
-
-
 
 const Main = () => (
   <main>
