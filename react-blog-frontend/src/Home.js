@@ -19,7 +19,7 @@ class Home extends Component {
       data: allBlogposts
     };
     this.blogData = this.blogData.bind(this);
-    this.deleteLastPost = this.deleteLastPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   //updates the state with the new blogpost. Updates state so that new blogpost is added to blogposts
@@ -32,15 +32,25 @@ class Home extends Component {
    }
 
    //removes the last added post in the blog
-   deleteLastPost(id) {
-     var check = 3;
-     if (typeof(id) == typeof(check)) {
+   deletePost(id) {
+     if (id) {
        //remove the blogpost with id=id
        allBlogposts.splice(id, 1);
        this.setState({data: allBlogposts});
      } else {
        allBlogposts.pop();
        this.setState({data: allBlogposts});
+    }
+   }
+
+   editPost(id) {
+    if (id) {
+      //remove the blogpost with id=id
+      allBlogposts[id-1] = {id: allBlogposts[id-1].postId, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[id-1].postBody}
+      this.setState({data: allBlogposts});
+    } else {
+      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].postId, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[allBlogposts.length - 1].postBody}
+      this.setState({data: allBlogposts});
     }
    }
 
@@ -64,7 +74,7 @@ class Home extends Component {
         </div>
         <ViewBlogposts blogPosts={blogposts}/>
         <div className="delete-btn-container">
-          <button className="delete-post" onClick={this.deleteLastPost} >Delete last post</button>
+          <button className="delete-post" onClick={this.deletePost} >Delete last post</button>
         </div>
           <div className="createblogpost-container">
           <CreateBlogpost handleBlogSubmit={this.blogData} />
