@@ -14,7 +14,7 @@ class LexChat extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handleLexRequest = this.handleLexRequest.bind(this);
+    this.handleLexResponse = this.handleLexResponse.bind(this);
   }
 
   componentDidMount() {
@@ -96,16 +96,27 @@ class LexChat extends React.Component {
     conversationDiv.scrollTop = conversationDiv.scrollHeight;
   }
 
-  handleLexRequest(lexRequest) {
+  handleLexResponse(lexRequest) {
     console.log(`Got intent ${lexRequest.intentName}`);
-    if (lexRequest.intentName === 'CreatePost') {
+    const intent = lexRequest.intentName;
+    const sessionAttributes = lexRequest.sessionAttributes;
+    if (intent === 'CreatePost') {
       console.log('registered create');
+      if(sessionAttributes.Id) {
+        // Edit post with id
+      }
     }
-    if (lexRequest.intentName === 'DeletePost') {
+    if (intent === 'DeletePost') {
       console.log('registered delete');
+      if(sessionAttributes.Id) {
+        // Edit post with id
+      }
     }
-    if (lexRequest.intentName === 'EditPost') {
+    if (intent === 'EditPost') {
       console.log('registered edit');
+      if(sessionAttributes.Id) {
+        // Edit post with id
+      }
     }
   }
 
@@ -115,7 +126,7 @@ class LexChat extends React.Component {
     var responsePara = document.createElement("P");
     responsePara.className = 'lexResponse';
     if (lexResponse.intentName) {
-      this.handleLexRequest(lexResponse);
+      this.handleLexResponse(lexResponse);
     }
     if (lexResponse.message) {
       responsePara.appendChild(document.createTextNode(lexResponse.message));
