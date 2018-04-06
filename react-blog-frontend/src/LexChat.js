@@ -14,7 +14,6 @@ class LexChat extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.handleLexResponse = this.handleLexResponse.bind(this);
   }
 
   componentDidMount() {
@@ -103,19 +102,25 @@ class LexChat extends React.Component {
     if (intent === 'CreatePost') {
       console.log('registered create');
       if(sessionAttributes.Id) {
-        // Edit post with id
+        
+      } else {
+        this.props.blogData('testTitle', 'testbody');
       }
     }
     if (intent === 'DeletePost') {
       console.log('registered delete');
       if(sessionAttributes.Id) {
         // Edit post with id
+      } else {
+        this.props.deletePost();
       }
     }
     if (intent === 'EditPost') {
       console.log('registered edit');
       if(sessionAttributes.Id) {
         // Edit post with id
+      } else {
+        this.props.editPost();
       }
     }
   }

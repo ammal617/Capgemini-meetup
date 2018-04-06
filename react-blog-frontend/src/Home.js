@@ -86,7 +86,11 @@ class Home extends Component {
                 style={{position: 'absolute'}}
                 backgroundColor="#FFFFFF"
                 height="430px"
-                headerText="Chat with our awesome bot" />
+                headerText="Chat with our awesome bot"
+                blogData = {this.blogData.bind(this)}
+                deletePost = {this.deletePost.bind(this)}
+                editPost = {this.editPost.bind(this)}
+                 />
       </div>
     );
   }
