@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './style/home.css';
 import CreateBlogpost from './CreateBlogpost';
 import ViewBlogposts from './ViewBlogposts';
-import LexChat from "react-lex";
+import LexChat from "./LexChat";
 
 //moch data representing the existing blog posts
 var allBlogposts = [
