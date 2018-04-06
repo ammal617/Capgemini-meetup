@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import "./style/chatbot.css";
 
+var sendToLex = true;
 
 class LexChat extends React.Component {
   constructor(props) {
@@ -44,33 +45,41 @@ class LexChat extends React.Component {
       inputFieldText.value = '...';
       inputFieldText.locked = true;
 
+      if(!sendToLex) {
+        console.log('do not send to lex');
+        this.props.blogData('testTitle', inputField);
+        this.showRequest(inputField);        
+        sendToLex = true;
+      } else {
+        console.log('send to lex');
       // send it to the Lex runtime
-      var params = {
-        botAlias: '$LATEST',
-        botName: this.props.botName,
-        inputText: inputField,
-        userId: this.state.lexUserId,
-        sessionAttributes: this.state.sessionAttributes
-      };
-      this.showRequest(inputField);
-      var a = function(err, data) {
-        if (err) {
-          console.log(err, err.stack);
-          this.showError('Error:  ' + err.message + ' (see console for details)')
-        }
-        if (data) {
-          // capture the sessionAttributes for the next cycle
-          this.setState({sessionAttributes: data.sessionAttributes})
-          //sessionAttributes = data.sessionAttributes;
-          // show response and/or error/dialog status
-          this.showResponse(data);
-        }
-        // re-enable input
-        inputFieldText.value = '';
-        inputFieldText.locked = false;
-      };
+        var params = {
+          botAlias: '$LATEST',
+          botName: this.props.botName,
+          inputText: inputField,
+          userId: this.state.lexUserId,
+          sessionAttributes: this.state.sessionAttributes
+        };
+        this.showRequest(inputField);
+        var a = function(err, data) {
+          if (err) {
+            console.log(err, err.stack);
+            this.showError('Error:  ' + err.message + ' (see console for details)')
+          }
+          if (data) {
+            // capture the sessionAttributes for the next cycle
+            this.setState({sessionAttributes: data.sessionAttributes})
+            //sessionAttributes = data.sessionAttributes;
+            // show response and/or error/dialog status
+            this.showResponse(data);
+          }
+          // re-enable input
+          inputFieldText.value = '';
+          inputFieldText.locked = false;
+        };
 
-      this.lexruntime.postText(params, a.bind(this));
+        this.lexruntime.postText(params, a.bind(this));
+      }
     }
     // we always cancel form submission
     return false;
@@ -104,11 +113,7 @@ class LexChat extends React.Component {
     console.log('lexRequest: ', JSON.stringify(lexRequest, null, 2));
     if (intent === 'CreatePost') {
       console.log('registered create');
-      if(sessionAttributes.Id) {
-        
-      } else {
-        this.props.blogData('testTitle', 'testbody');
-      }
+      sendToLex = false;
     }
     if (intent === 'DeletePost') {
       console.log('registered delete');
