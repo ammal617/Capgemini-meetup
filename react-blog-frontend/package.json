@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.221.1",
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",
+    "react-audio-recorder": "^2.0.1",
     "react-dom": "^16.2.0",
+    "react-lex": "file:./react-lex",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1"
   },
@@ -13,7 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "predeploy": "react.scripts build",
-    "deploy":"aws s3 cp build s3://<capgeminiblogg.com> --recursive",
+    "deploy": "aws s3 cp build s3://<capgeminiblogg.com> --recursive",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

@@ -1,8 +1,10 @@
+export default Home;
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './style/home.css';
 import CreateBlogpost from './CreateBlogpost';
 import ViewBlogposts from './ViewBlogposts';
+import LexChat from "react-lex";
 
 //moch data representing the existing blog posts
 var allBlogposts = [
@@ -54,6 +56,13 @@ class Home extends Component {
           <CreateBlogpost handleBlogSubmit={this.blogData} />
           </div>
         </div>
+        <LexChat botName="ManageBlog"
+                IdentityPoolId="eu-west-1:9d05d183-ea5f-41d3-b281-c4befa2fdb80"
+                placeholder="Placeholder text"
+                style={{position: 'absolute'}}
+                backgroundColor="#FFFFFF"
+                height="430px"
+                headerText="Chat with our awesome bot" />
       </div>
     );
   }
