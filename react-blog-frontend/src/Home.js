@@ -49,7 +49,7 @@ class Home extends Component {
       allBlogposts[id-1] = {id: allBlogposts[id-1].postId, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[id-1].postBody}
       this.setState({data: allBlogposts});
     } else {
-      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].postId, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[allBlogposts.length - 1].postBody}
+      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].id, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[allBlogposts.length - 1].body}
       this.setState({data: allBlogposts});
     }
    }
