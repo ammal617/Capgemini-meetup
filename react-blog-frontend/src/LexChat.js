@@ -48,7 +48,7 @@ class LexChat extends React.Component {
       if(!sendToLex) {
         console.log('do not send to lex');
         this.props.blogData('testTitle', inputField);
-        this.showRequest(inputField);        
+        this.showRequest(inputField);  
         sendToLex = true;
       } else {
         console.log('send to lex');
@@ -118,9 +118,8 @@ class LexChat extends React.Component {
     if (intent === 'DeletePost') {
       console.log('registered delete');
       if(slots.Id) {
-        console.log('parsing id: ', slots.Id);
-        const intId = parseInt(slots.Id);
-        this.props.deletePost(intId);
+        console.log('fotid: ', slots.Id);
+        this.props.deletePost(slots.Id);
       } else if (!slotToElicit) {
         console.log('deleting lastest post');
         this.props.deletePost();
