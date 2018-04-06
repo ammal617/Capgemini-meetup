@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 /**
@@ -9,14 +9,19 @@ import Home from './Home';
 import CreateBlogpost from './CreateBlogpost';
 
 
+class Main extends Component {
 
-const Main = () => (
-  <main>
-    <Switch>
-    <Route exact path="/" component={Home} />
-    <Route path="/createpost" component={CreateBlogpost} />
-    </Switch>
-  </main>
-)
+  render() {
+    return (
+      <main>
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/createpost" component={CreateBlogpost} />
+        </Switch>
+      </main>
+    );
+  }
+}
+
 
 export default Main
