@@ -33,9 +33,10 @@ class Home extends Component {
 
    //removes the last added post in the blog
    deletePost(id) {
+     console.log('deleting id: ', typeof id);
      if (id) {
        //remove the blogpost with id=id
-       allBlogposts.splice(id, 1);
+       allBlogposts.splice(id - 1, 1);
        this.setState({data: allBlogposts});
      } else {
        allBlogposts.pop();
@@ -45,7 +46,6 @@ class Home extends Component {
 
    editPost(id) {
     if (id) {
-      //remove the blogpost with id=id
       allBlogposts[id-1] = {id: allBlogposts[id-1].postId, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[id-1].postBody}
       this.setState({data: allBlogposts});
     } else {
@@ -62,7 +62,7 @@ class Home extends Component {
           <h1> {item.title} </h1>
           <p className="date"> {item.date} </p>
           <h4> {item.body} </h4>
-          <p className="author"> - {item.author} </p>
+          <p className="author"> Id: {item.id} </p>
         </div>
       )
     });

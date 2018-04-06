@@ -99,6 +99,9 @@ class LexChat extends React.Component {
     console.log(`Got intent ${lexRequest.intentName}`);
     const intent = lexRequest.intentName;
     const sessionAttributes = lexRequest.sessionAttributes;
+    const slots = lexRequest.slots;
+    const slotsToElicit = lexRequest.slotsToElicit;
+
     if (intent === 'CreatePost') {
       console.log('registered create');
       if(sessionAttributes.Id) {
@@ -109,16 +112,20 @@ class LexChat extends React.Component {
     }
     if (intent === 'DeletePost') {
       console.log('registered delete');
-      if(sessionAttributes.Id) {
-        // Edit post with id
-      } else {
+      if(slots.Id) {
+        console.log('parsing id: ', slots.Id);
+        const intId = parseInt(slots.Id);
+        this.props.deletePost(intId);
+      } else if (slotsToElicit) {
         this.props.deletePost();
       }
     }
     if (intent === 'EditPost') {
       console.log('registered edit');
-      if(sessionAttributes.Id) {
-        // Edit post with id
+      if(slots.Id) {
+        console.log('parsing id: ', slots.Id);
+        const intId = parseInt(slots.Id);
+        this.props.editPost(intId);
       } else {
         this.props.editPost();
       }
