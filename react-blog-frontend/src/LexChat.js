@@ -4,6 +4,8 @@ import AWS from 'aws-sdk';
 import "./style/chatbot.css";
 
 var sendToLex = true;
+var gotTitle = false;
+var title = "Placeholder";
 
 class LexChat extends React.Component {
   constructor(props) {
@@ -44,10 +46,15 @@ class LexChat extends React.Component {
       var inputField = inputFieldText.value.trim();
       inputFieldText.value = '...';
       inputFieldText.locked = true;
+      
 
       if(!sendToLex) {
         console.log('do not send to lex');
-        this.props.blogData('testTitle', inputField);
+        
+        this.props.blogData(title, inputField);
+        if (gotTitle) {
+          title = 'Placeholder'; //reset title 
+        }
         this.showRequest(inputField);  
         sendToLex = true;
         
@@ -121,7 +128,17 @@ class LexChat extends React.Component {
     console.log('lexRequest: ', JSON.stringify(lexRequest, null, 2));
     if (intent === 'CreatePost') {
       console.log('registered create');
-      sendToLex = false;
+      if(slots.Title) {
+        console.log('got title');
+        title = slots.Title;
+        gotTitle = true;
+        sendToLex = true;
+      } else if (!slotToElicit) {
+        console.log('Create post without title')
+        sendToLex = false;
+      } else {
+        console.log('no action');
+      }
     }
     if (intent === 'DeletePost') {
       console.log('registered delete');
