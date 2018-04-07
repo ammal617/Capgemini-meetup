@@ -24,7 +24,7 @@ class Home extends Component {
 
   //updates the state with the new blogpost. Updates state so that new blogpost is added to blogposts
   blogData(postTitle, postBody) {
-    var newPost = {id: postId, date: "April 6", author: "Filippa", title: postTitle, body: postBody};
+    var newPost = {id: postId.toString(), date: "April 6", author: "Filippa", title: postTitle, body: postBody};
     allBlogposts.push(newPost);
     postId ++;
     this.setState({data: allBlogposts});
