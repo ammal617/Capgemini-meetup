@@ -50,6 +50,14 @@ class LexChat extends React.Component {
         this.props.blogData('testTitle', inputField);
         this.showRequest(inputField);  
         sendToLex = true;
+        
+        this.setState({sessionAttributes: this.state.sessionAttributes})
+        var fakeRes = {
+          message: 'Ok, I have created your post'
+        };
+        this.showResponse(fakeRes);
+        inputFieldText.value = '';
+        inputFieldText.locked = false;
       } else {
         console.log('send to lex');
       // send it to the Lex runtime
@@ -118,7 +126,7 @@ class LexChat extends React.Component {
     if (intent === 'DeletePost') {
       console.log('registered delete');
       if(slots.Id) {
-        console.log('fotid: ', slots.Id);
+        console.log('got id: ', slots.Id);
         this.props.deletePost(slots.Id);
       } else if (!slotToElicit) {
         console.log('deleting lastest post');
