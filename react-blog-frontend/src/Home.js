@@ -34,7 +34,7 @@ class Home extends Component {
    //removes the last added post in the blog
    deletePost(id) {
      console.log('deleting id: ', typeof id, id);
-     if (id) {
+     if (typeof id === 'number') {
        //remove the blogpost with id=id
        allBlogposts = allBlogposts.filter(post => post.id !== id);
        this.setState({data: allBlogposts});
