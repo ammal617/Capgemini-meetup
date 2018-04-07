@@ -52,17 +52,24 @@ class LexChat extends React.Component {
         console.log('do not send to lex');
         
         this.props.blogData(title, inputField);
-        if (gotTitle) {
-          title = 'Placeholder'; //reset title 
-        }
+        
         this.showRequest(inputField);  
         sendToLex = true;
         
-        this.setState({sessionAttributes: this.state.sessionAttributes})
-        var fakeRes = {
-          message: 'Ok, I have created your post'
-        };
-        this.showResponse(fakeRes);
+        if (gotTitle) {
+          title = 'Placeholder'; //reset title 
+          this.setState({sessionAttributes: this.state.sessionAttributes})
+          var fakeRes = {
+            message: 'Ok, I will remembder your title'
+          };
+          this.showResponse(fakeRes);
+        } else {
+          this.setState({sessionAttributes: this.state.sessionAttributes})
+          var fakeRes = {
+            message: 'Ok, I have created your post'
+          };
+          this.showResponse(fakeRes);
+        }
         inputFieldText.value = '';
         inputFieldText.locked = false;
       } else {
