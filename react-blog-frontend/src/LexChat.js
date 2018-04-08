@@ -2,6 +2,9 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import "./style/chatbot.css";
+import AudioRecorder from 'react-audio-recorder';
+import resampler from 'audio-resampler';
+import toBuffer from 'blob-to-buffer';
 
 var sendToLex = true;
 var gotTitle = false;
@@ -19,6 +22,33 @@ class LexChat extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  onChange(input) {
+    console.log('on change');
+    console.log(typeof input.audioData);
+    console.log(input);
+    let lexInput;
+    let fileReader = new FileReader();
+    let arrayBuffer;
+    let audioContext = new AudioContext();
+    
+    toBuffer(input.audioData, function (err, buffer) {
+      if (err) throw err
+     console.log('got buffer:', buffer);
+      arrayBuffer = buffer.readUInt8(1);
+    })
+    let audioBuffer = audioContext.decodeAudioData(arrayBuffer);
+    
+
+    
+    resampler(audioBuffer, 16000, function(event){
+      event.getFile(function(fileEvent){
+          lexInput = fileEvent;
+      });
+    });
+    this.pushAudio(lexInput); 
+    
+  }
+
   componentDidMount() {
     document.getElementById("inputField").focus();
     AWS.config.region = 'eu-west-1';
@@ -27,7 +57,6 @@ class LexChat extends React.Component {
     });
     var lexruntime = new AWS.LexRuntime();
     this.lexruntime = lexruntime;
-
   }
 
   handleClick() {
@@ -105,6 +134,41 @@ class LexChat extends React.Component {
     }
     // we always cancel form submission
     return false;
+  }
+
+  pushAudio(audio){
+    console.log('send to lex');
+    // send it to the Lex runtime
+    var inputFieldText = document.getElementById('inputField');
+      var params = {
+        botAlias: '$LATEST',
+        botName: this.props.botName,
+        inputStream: audio,
+        contentType: 'audio/l16; rate=16000; channels=1',
+        accept: 'text/plain; charset=utf-8',
+        userId: this.state.lexUserId,
+        sessionAttributes: this.state.sessionAttributes
+      };
+      
+      var a = function(err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          this.showError('Error:  ' + err.message + ' (see console for details)')
+        }
+        if (data) {
+          this.showRequest(data.inputTranscript);
+          // capture the sessionAttributes for the next cycle
+          this.setState({sessionAttributes: data.sessionAttributes})
+          //sessionAttributes = data.sessionAttributes;
+          // show response and/or error/dialog status
+          this.showResponse(data);
+        }
+        // re-enable input
+        inputFieldText.value = '';
+        inputFieldText.locked = false;
+      };
+
+      this.lexruntime.postContent(params, a.bind(this));
   }
 
   showRequest(daText) {
@@ -247,6 +311,8 @@ class LexChat extends React.Component {
 
     return (
       <div id="chatwrapper">
+      <AudioRecorder 
+            onChange = {this.onChange.bind(this)}/>
         <div id="chat-header-rect" style={headerRectStyle} onClick={this.handleClick} >{this.props.headerText}
               {(this.state.visible === 'open') ? <span className='chevron top'></span> : <span className='chevron bottom'></span>}
         </div>

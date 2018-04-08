@@ -48,9 +48,6 @@ class CreateBlogpost extends Component {
           </div>
         </div>
         <div className="">
-          <div className="Audio-recorder">
-            <AudioRecorder />
-          </div>
           <div className="Blogpost-text-input">
             <div className="forms-container">
             <h1> Write your blogpost here: </h1>
