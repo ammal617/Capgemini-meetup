@@ -24,7 +24,7 @@ class Home extends Component {
 
   //updates the state with the new blogpost. Updates state so that new blogpost is added to blogposts
   blogData(postTitle, postBody) {
-    var newPost = {id: postId.toString(), date: "April 6", author: "Filippa", title: postTitle, body: postBody};
+    var newPost = {id: postId.toString(), date: "April 8", author: "Filippa", title: postTitle, body: postBody};
     allBlogposts.push(newPost);
     postId ++;
     this.setState({data: allBlogposts});
@@ -55,13 +55,11 @@ class Home extends Component {
         allBlogposts[index] = {id: allBlogposts[index].id, date: allBlogposts[index].date, author: "Filippa", title: allBlogposts[index].title, body: newBody}
         this.setState({data: allBlogposts});
       }else {
-
       console.log('did not find post');
       }
-      
     } else {
       console.log('edit latest id');
-      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].id, date: "April 6", author: "Filippa", title: 'new title', body: newBody}
+      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].id, date: allBlogposts[allBlogposts.length - 1].date, author: "Filippa", title: allBlogposts[allBlogposts.length - 1].title, body: newBody}
       this.setState({data: allBlogposts});
     }
    }

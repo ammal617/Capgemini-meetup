@@ -180,6 +180,7 @@ class LexChat extends React.Component {
         action = 'editPost';
       } else if (!slotToElicit) {
         console.log('edit lastest post')
+        editId = undefined;
         sendToLex = false;
         action = 'editPost';
       } else {
