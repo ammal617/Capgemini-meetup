@@ -6,6 +6,8 @@ import "./style/chatbot.css";
 var sendToLex = true;
 var gotTitle = false;
 var title = "Placeholder";
+var action = null;
+var editId = null;
 
 class LexChat extends React.Component {
   constructor(props) {
@@ -39,7 +41,7 @@ class LexChat extends React.Component {
     event.preventDefault();
 
     var inputFieldText = document.getElementById('inputField');
-
+    console.log('sendToLex:', sendToLex);
     if (inputFieldText && inputFieldText.value && inputFieldText.value.trim().length > 0) {
 
       // disable input to show we're sending it
@@ -51,7 +53,15 @@ class LexChat extends React.Component {
       if(!sendToLex) {
         console.log('do not send to lex');
         
-        this.props.blogData(title, inputField);
+        if(action === "createPost") {
+          action = null;
+          this.props.blogData(title, inputField);
+        }else if(action === "editPost") {
+          console.log('action was edit post');
+          action = null;
+          this.props.editPost(editId, inputField);
+        }
+        
         
         this.showRequest(inputField);  
         sendToLex = true;
@@ -140,9 +150,11 @@ class LexChat extends React.Component {
         title = slots.Title;
         gotTitle = true;
         sendToLex = true;
+        action = 'createPost';
       } else if (!slotToElicit) {
         console.log('Create post without title')
         sendToLex = false;
+        action = 'createPost';
       } else {
         console.log('no action');
       }
@@ -162,11 +174,14 @@ class LexChat extends React.Component {
     if (intent === 'EditPost') {
       console.log('registered edit');
       if(slots.Id) {
-        console.log('parsing id: ', slots.Id);
-        const intId = parseInt(slots.Id);
-        this.props.editPost(intId);
+        console.log('edit post with id: ', slots.Id);
+        sendToLex = false;
+        editId  = slots.Id;
+        action = 'editPost';
       } else if (!slotToElicit) {
-        this.props.editPost();
+        console.log('edit lastest post')
+        sendToLex = false;
+        action = 'editPost';
       } else {
         console.log('no action');
       }

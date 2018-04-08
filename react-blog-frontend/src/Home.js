@@ -44,12 +44,24 @@ class Home extends Component {
     }
    }
 
-   editPost(id) {
+   editPost(id, newBody) {
+    console.log('got id:', id);
     if (id) {
-      allBlogposts[id-1] = {id: allBlogposts[id-1].postId, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[id-1].postBody}
-      this.setState({data: allBlogposts});
+      console.log('edit id', id);
+      
+      const index = allBlogposts.findIndex((obj => obj.id === id));
+      console.log('index', index );
+      if(index !== -1) {
+        allBlogposts[index] = {id: allBlogposts[index].id, date: allBlogposts[index].date, author: "Filippa", title: allBlogposts[index].title, body: newBody}
+        this.setState({data: allBlogposts});
+      }else {
+
+      console.log('did not find post');
+      }
+      
     } else {
-      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].id, date: "April 6", author: "Filippa", title: 'new title', body: allBlogposts[allBlogposts.length - 1].body}
+      console.log('edit latest id');
+      allBlogposts[allBlogposts.length - 1] = {id: allBlogposts[allBlogposts.length - 1].id, date: "April 6", author: "Filippa", title: 'new title', body: newBody}
       this.setState({data: allBlogposts});
     }
    }
